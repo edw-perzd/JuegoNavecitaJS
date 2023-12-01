@@ -1,0 +1,13 @@
+body{
+    color: white;
+    font-family: 'Consolas';
+    background-color: black;
+    display: grid;
+    place-items: center;
+}
+canvas{
+    background-color: #000113;
+}
+.container{
+    text-align: center;
+}
