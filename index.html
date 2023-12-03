@@ -9,8 +9,25 @@
 <body>
     <div class="container">
         <h1>Juego de la navecita</h1>
-        <h2>Preciona Enter para comenzar a jugar...</h2>
-        <canvas id="canva" width="900" height="500"></canvas>
+        <canvas id="canvas" width="900" height="450"></canvas>
+        <div class="scores">
+            <table>
+                <th class="totalvidas">
+                    
+                </th>
+                <th>
+                    <h3>Puntos: </h3>
+                    <span class="points"></span>
+                </th>
+                <th>
+                    <h3>Puntaje máximo: </h3>
+                    <span class="pmax"></span>
+                </th>
+            </table>
+            <button class="btn-start">Start</button>
+            <br>
+            <button class="btn-reset">Reset Max. Puntaje</button>
+        </div>
     </div>
     <script src="./navecita.js"></script>
 </body>
