@@ -17,6 +17,8 @@ puntaje.innerHTML = contador;
 pmax.innerHTML = pointMax;
 vidasT.innerHTML = crearVidas(vidas);
 
+let meteoros = [];
+
 function nave(x, y){
     ctx.lineWidth = 3;
     ctx.strokeStyle = 'white';
@@ -25,6 +27,7 @@ function nave(x, y){
     ctx.lineTo(x + 20, y - 40);
     ctx.lineTo(x + 40, y);
     ctx.stroke();
+    ctx.closePath();
     
 }
 
@@ -47,22 +50,56 @@ function crearVidas(vidas){
 setInterval(() =>
 {
     nave(CorX, CorY);
+    if(meteoros.length <= 6){
+        for(let i = meteoros.length; i <=6; i++){
+            meteoros.push({
+                x: Math.floor(Math.random() * 1000),
+                y: Math.floor(Math.random() * -50),
+                dir: Math.floor(Math.random() * 3),
+                size: Math.floor((Math.random() * 51) + 10),
+                pintar: function(){
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+            });
+            meteoros[i].pintar();
+        }
+    }
+    meteoros.forEach(meteoro =>{
+        if(meteoro.dir === 1){
+            meteoro.x++;
+        }
+        else if(meteoro.dir === 2){
+            meteoro.x--;
+        }
+        meteoro.y++;
+        meteoro.pintar();
+        nave(CorX, CorY);
+        /*if(meteoro.x === 100 && meteoro.y === 100){
+            meteoros.splice(meteoros.findIndex(function(met){
+                return meteoro === met;
+            }), 1);
+        }*/
+    },
+    ctx.clearRect(0, 0, 900, 450));
+
     if(position === 1){
         if(CorX > 5){
-            ctx.clearRect(0, 0, 900, 450);
-            CorX -=5;
+            ctx.clearRect(CorX - 2, CorY - 45, 45, 50);
+            CorX -=15;
             position = 0;
         }
     }
     else if(position === 2){
         if(CorX < 850){
-            ctx.clearRect(0, 0, 900, 450);
-            CorX +=5;
+            ctx.clearRect(CorX - 2, CorY - 45, 50, 50);
+            CorX +=15;
             position = 0;
         }
     }
     
-},2)
+},60);
 
 document.querySelector('body').addEventListener('keydown', (e) => {
     e.preventDefault();
